@@ -39,6 +39,7 @@ public class CliVisualizer implements Visualizer {
         }
 
         sb.append(NEW_LINE);
+        sb.append("  ");
 
         for(int x=0; x < field.getMaxX(); x++){
             sb.append(x == headX ? "^" : " ");
@@ -46,11 +47,11 @@ public class CliVisualizer implements Visualizer {
 
         sb.append(NEW_LINE);
 
-        for(int y=0; y < field.getMaxY(); y++){
+        for(int y= field.getMaxY()-1; y > 0; y--){
             sb.append(y);
             sb.append(y == headY ? "<" : " ");
             for(int x=0; x < field.getMaxX(); x++){
-                sb.append(points[x][y] ? "_" : " ");
+                sb.append(points[x][y] ? (x == headX && y == headY ? "x" : "+") : " ");
             }
             sb.append(NEW_LINE);
         }
