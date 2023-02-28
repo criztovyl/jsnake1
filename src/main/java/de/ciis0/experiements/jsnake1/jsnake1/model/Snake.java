@@ -12,10 +12,18 @@ import java.util.List;
 public class Snake {
     List<BodyPart> points;
 
-    public void move(Direction2D direction) {
-        log.debug("Moving {}", direction);
-        points.forEach(bp ->
-                bp.move(direction)
-        );
+    public void move(Direction2D headDirection) throws BodyPart.InvalidLocationException {
+        log.debug("Moving {}", headDirection);
+        Direction2D direction = headDirection;
+        BodyPart last = null;
+        for (BodyPart bp : points) {
+            BodyPart copy = bp.copy();
+            if (last != null) {
+                direction = bp.moveAfter(direction, last);
+            } else {
+                bp.moveAfter(headDirection);
+            }
+            last = copy;
+        }
     }
 }
